@@ -6,6 +6,8 @@ import AuthorFields from "./AuthorFields";
 import PublisherFields from "./PublisherFields";
 import CollectionFields from "./CollectionFields";
 
+import { findOrCreatePublisher } from "../../services/publisherService"
+
 function BookForm() {
   // Book
   const [isbn, setISBN] = useState("");
@@ -33,7 +35,15 @@ function BookForm() {
   async function sendForm(event: React.SubmitEvent) {
     event.preventDefault();
 
+    const publisherId = await findOrCreatePublisher(
+      publisherName,
+      publisherCountry
+    )
+
     const newBook = {
+      // Foreign Keys
+      publisher_id: publisherId,
+      // Rows
       isbn: isbn,
       title: title,
       subtitle: subtitle,
@@ -45,6 +55,8 @@ function BookForm() {
     };
 
     const { data, error } = await supabase.from("Books").insert(newBook);
+
+    console.log("Publisher id:", publisherId);
 
     if (error) {
       console.error("Erro ao cadastrar:", error);

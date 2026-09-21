@@ -155,7 +155,6 @@ function BookFields({
           </label>
           <div className="d-flex gap-3">
             <input
-              required
               type="text"
               className="form-control"
               id="inputGenres"
