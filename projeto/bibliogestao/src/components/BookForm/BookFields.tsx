@@ -155,7 +155,6 @@ function BookFields({
           </label>
           <div className="d-flex gap-3">
             <input
-              required
               type="text"
               className="form-control"
               id="inputGenres"
@@ -183,7 +182,7 @@ function BookFields({
                 style={{ fontSize: "1.1rem", lineHeight: 1, marginLeft: "6px" }}
                 onClick={() => removeGenre(genre)}
               >
-                x{" "}
+                x
               </button>
             </span>
           ))}
