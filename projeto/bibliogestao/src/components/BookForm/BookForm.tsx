@@ -29,8 +29,15 @@ function BookForm() {
   const [publisherCountry, setPublisherCountry] = useState("");
 
   // Collection
-  const [condition, setCondition] = useState(0);
   const [numberBooksInserted, setNumberBooksInserted] = useState(1);
+  const [bookConditions, setBookConditions] = useState<number[]>([
+    0, // Irrecuperável
+    0, // Precário
+    0, // Desgastado
+    0, // Regular
+    0, // Bem conservado
+    0, // Novo
+  ]);
 
   async function sendForm(event: React.SubmitEvent) {
     event.preventDefault();
@@ -50,8 +57,7 @@ function BookForm() {
       edition: edition,
       language: language,
       publication_year: publicationYear,
-      //numberBooksInserted,
-      condition: condition,
+      //numberBooksInserted,      
     };
 
     const { data, error } = await supabase.from("Books").insert(newBook);
@@ -107,10 +113,10 @@ function BookForm() {
 
         {/* COLLECTION FIELD */}
         <CollectionFields
-          condition={condition}
-          setCondition={setCondition}
           numberBooksInserted={numberBooksInserted}
           setNumberBooksInserted={setNumberBooksInserted}
+          bookConditions={bookConditions}
+          setBookConditions={setBookConditions}
         />
 
         <button type="submit" className="btn btn-primary">
