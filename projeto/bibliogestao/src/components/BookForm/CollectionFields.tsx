@@ -86,7 +86,25 @@ function CollectionFields({
 
         </div>
 
-        {conditions.map((condition) => )}
+        {conditions.map((condition) => (
+          <div key={condition.number} className="d-flex align-items-center border-bottom py-3">
+            
+            <span className="badge bg-primary fs-6">
+              {condition.number}              
+            </span>
+            
+            <div className="flex-grow-1 px-3">
+              
+              <strong>
+                {condition.name}
+              </strong>
+
+              <div className="text-muted small">
+                {condition.description}
+              </div>
+            </div>
+          </div>
+        ))}
 
       </fieldset>
     </>
