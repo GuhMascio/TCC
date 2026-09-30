@@ -6,7 +6,9 @@ import AuthorFields from "./AuthorFields";
 import PublisherFields from "./PublisherFields";
 import CollectionFields from "./CollectionFields";
 
-import { findOrCreatePublisher } from "../../services/publisherService"
+import { findOrCreatePublisher } from "../../services/publisherService";
+import { findOrCreateAuthors } from "../../services/authorService";
+import { findOrCreateGenres } from "../../services/genreService";
 
 function BookForm() {
   // Book
@@ -40,6 +42,14 @@ function BookForm() {
       publisherCountry
     )
 
+    const authorIds = await findOrCreateAuthors(
+      authorFullName
+    )
+
+    const genreIds = await findOrCreateGenres(
+      genres
+    )
+
     const newBook = {
       // Foreign Keys
       publisher_id: publisherId,
@@ -54,16 +64,48 @@ function BookForm() {
       condition: condition,
     };
 
-    const { data, error } = await supabase.from("Books").insert(newBook);
-
-    console.log("Publisher id:", publisherId);
+    const { data, error } = await supabase
+      .from("Books")
+      .insert(newBook)
+      .select("id")
+      .single();
 
     if (error) {
       console.error("Erro ao cadastrar:", error);
       return;
     }
 
-    return data;
+    const bookId = data.id;
+
+    const bookAuthors = authorIds.map((authorId) => ({
+      book_id: bookId,
+      author_id: authorId
+    }))
+
+    const bookGenres = genreIds.map((genreId) => ({
+      book_id: bookId,
+      genre_id: genreId
+    }))
+
+    const { error: bookAuthorsError } = await supabase
+      .from("BookAuthors")
+      .insert(bookAuthors);
+
+    if (bookAuthorsError) {
+      console.error("Error BookAuthors:", bookAuthorsError);
+      return;
+    }
+
+    const { error: bookGenresError } = await supabase
+      .from("BookGenres")
+      .insert(bookGenres);
+
+    if (bookGenresError) {
+      console.error("Error BookGenres:", bookGenresError);
+      return;
+    }
+
+    return;
   }
 
   return (
