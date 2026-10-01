@@ -69,10 +69,10 @@ function CollectionFields({
           Acervo
         </legend>
 
-        <div className="mb-4">
+        <div className="mb-5">
 
           <label htmlFor="inputNumberBooksInserted" className="form-label">
-            Quantidade de livros a ser inseridos          
+            Quantidade total de livros a ser inseridos          
           </label>
 
           <input
