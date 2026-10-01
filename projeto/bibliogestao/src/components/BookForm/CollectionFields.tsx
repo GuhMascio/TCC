@@ -86,6 +86,16 @@ function CollectionFields({
 
         </div>
 
+        <div className="d-flex fw-bold fs-5 mb-1">
+          <div className="flex-grow-1">
+            Condição
+          </div>
+
+          <div className="text-start flex-shrink-0">
+            Quantidade
+          </div>
+        </div>
+
         {conditions.map((condition) => (
           <div key={condition.number} className="d-flex align-items-center border-bottom py-3">
             
@@ -93,7 +103,7 @@ function CollectionFields({
               {condition.number}              
             </span>
             
-            <div className="flex-grow-1 px-3">
+            <div className="flex-grow-1 px-3" style={{ minWidth: 0}}>
               
               <strong>
                 {condition.name}
@@ -102,10 +112,38 @@ function CollectionFields({
               <div className="text-muted small">
                 {condition.description}
               </div>
+
+              
             </div>
+
+            <div>
+                <input
+                  type="number"
+                  className="form-control"
+                  min="0"
+                  value={bookConditions[condition.number]}
+                  onChange={(event) => handleConditionChange(condition.number, Number(event.target.value))}
+                />
+            </div>
+
           </div>
         ))}
 
+        <div className="text-end mt-4">
+          <strong>Total distribuído: {totalDistributed} / {numberBooksInserted}</strong>
+        </div>
+        
+        {totalDistributed === numberBooksInserted &&
+          <div className="text-success text-end">
+            ✅ Quantidades conferem
+          </div>
+        }
+
+        {totalDistributed !== numberBooksInserted &&
+          <div className="text-danger text-end">
+            ⚠️ A quantidade não confere
+          </div>
+        }
       </fieldset>
     </>
   );
