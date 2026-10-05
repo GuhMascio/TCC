@@ -141,7 +141,7 @@ function CollectionFields({
 
         {totalDistributed !== numberBooksInserted &&
           <div className="text-danger text-end">
-            ⚠️ A quantidade não confere
+            ⚠️ Quantidade não confere
           </div>
         }
       </fieldset>

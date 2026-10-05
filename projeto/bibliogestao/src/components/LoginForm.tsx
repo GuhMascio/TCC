@@ -4,16 +4,34 @@ import logonova from '../assets/logonova.png';
 
 function LoginForm() {
     return (
+        <>
+        <style>
+            {`
+                .meu-placeholder::placeholder {
+                    color: #adacac;
+                    font-size: 17px;
+                }
+
+                .fs-7 {
+                    font-size: 0.9rem;
+                }
+
+                .font-input {
+                    font-size: 17px;
+                }
+            `}
+        </style>
+        
         <div 
             className="container-fluid min-vh-100 d-flex flex-column justify-content-center align-items-center"
-            style={{ backgroundColor: "#1A335B" }}
+            style={{ backgroundColor: "#0f1c35" }}
         >
             <div className="text-center text-white mb-4">
                 <img 
-    src={logonova} 
-    alt="Logo BiblioGestão" 
-    style={{ width: "90px", marginBottom: "20px", borderRadius: "22px" }} 
-/>
+                    src={logonova} 
+                    alt="Logo BiblioGestão" 
+                    style={{ width: "90px", marginBottom: "20px", borderRadius: "22px" }} 
+                />
                 
                 <h1 className="fw-bold">BiblioGestão</h1>
                 <p className="text-secondary" style={{ color: "#A0AEC0" }}>
@@ -33,18 +51,18 @@ function LoginForm() {
                     Entrar na conta
                 </h2>
 
-                <p className="text-secondary mb-4">
+                <p className="text-secondary mb-4 fs-7">
                     Acesso exclusivo aos funcionários autorizados
                 </p>
 
                 <div className="mb-4">
                     <label className="form-label fw-semibold">
-                        E-mail institucional
+                        E-mail
                     </label>
                     <input
                         type="email"
-                        className="form-control form-control-lg rounded-4"
-                        placeholder="seu@biblioteca.gov.br"
+                        className="form-control form-control-lg rounded-4 meu-placeholder font-input"
+                        placeholder="Digite seu e-mail"
                     />
                 </div>
 
@@ -54,7 +72,7 @@ function LoginForm() {
                     </label>
                     <input
                         type="password"
-                        className="form-control form-control-lg rounded-4"
+                        className="form-control form-control-lg rounded-4 meu-placeholder font-input"
                         placeholder="Digite sua senha"
                     />
                 </div>
@@ -73,6 +91,7 @@ function LoginForm() {
                 </div>
             </div>
         </div>
+        </>
     );      
 }
 
