@@ -44,6 +44,22 @@ function BookForm() {
   async function sendForm(event: React.SubmitEvent) {
     event.preventDefault();
 
+    const totalDistributed = bookConditions.reduce(
+      (total, quantity) => total + quantity, 0
+    );
+
+    if (totalDistributed !== numberBooksInserted) {
+      console.log("A quantidade de livros não confere!");
+      return;
+    }
+
+    const conditionsObject = Object.fromEntries(
+      bookConditions.map((quantity, index) => [
+        `condition_${index}`,
+        quantity
+      ])
+    );
+
     const publisherId = await findOrCreatePublisher(
       publisherName,
       publisherCountry
@@ -67,7 +83,8 @@ function BookForm() {
       edition: edition,
       language: language,
       publication_year: publicationYear,
-      //numberBooksInserted,      
+      stock_quantity: numberBooksInserted,   
+      conditions: conditionsObject   
     };
 
     const { data, error } = await supabase
